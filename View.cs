@@ -110,7 +110,7 @@ namespace InterfaceExersare
                 Console.WriteLine("Introdu valoarea numerica pentru greutate:");
                 filterValueInt = Int32.Parse(Console.ReadLine());
 
-                if (filterValueInt <= 0)
+                if (filterValueInt == -1)
                 {
                     Console.WriteLine("Valoare invalida.");
                     isValidFilter = false;
@@ -121,7 +121,7 @@ namespace InterfaceExersare
                 Console.WriteLine("Introdu valoarea numerica pentru viteza maxima:");
                 filterValueInt = Int32.Parse(Console.ReadLine());
 
-                if (filterValueInt <= 0)
+                if (filterValueInt == -1)
                 {
                     Console.WriteLine("Valoare invalida.");
                     isValidFilter = false;
@@ -159,14 +159,13 @@ namespace InterfaceExersare
             }
         }
 
-
         public int GeneratorId()
         {
             Random rnd = new Random();
 
             int id = rnd.Next(1, 1000000);
 
-            while (_masinaQueryService.FindCarById(id) != null)
+            while ((id) != null)
             {
                 id = rnd.Next(1, 1000000);
 
@@ -204,16 +203,55 @@ namespace InterfaceExersare
 
         }
 
-        public void EditMasina()
+        public string EditMasina()
         {
             Console.WriteLine("Introdu ID-ul mașinii pe care vrei să o editezi:");
             int id = Int32.Parse(Console.ReadLine());
 
             Masina masina = _masinaQueryService.FindCarById(id);
 
-            Masina updateMasina = _masinaComandService.UpdateMasina(masina);
+            bool updateMasina = false;
 
-            if (updateMasina != null)
+            if (masina != null)
+            {
+                Console.WriteLine("Ce vrei sa modifici la masina?");
+                Console.WriteLine("1. Brand");
+                Console.WriteLine("2. Greutate");
+                Console.WriteLine("3. Viteza maxima");
+
+                string optiune = Console.ReadLine();
+
+                
+                switch (optiune)
+                {
+                    case "1":
+                        Console.WriteLine("Introdu noul brand:");
+                        masina.Brand = Console.ReadLine();
+                        updateMasina = true;
+                        _masinaComandService.UpdateCar(masina);
+                        break;
+
+                    case "2":
+                        Console.WriteLine("Introdu noua greutate:");
+                        masina.Weight = Int32.Parse(Console.ReadLine());
+                        _masinaComandService.UpdateCar(masina);
+                        updateMasina = true;
+                        break;
+
+                    case "3":
+                        Console.WriteLine("Introdu noua viteza maxima:");
+                        masina.topSpeed = Int32.Parse(Console.ReadLine());
+                        _masinaComandService.UpdateCar(masina);
+                        updateMasina = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Optiune invalida.");
+                        return null;
+                }
+            }
+
+            if (updateMasina == true)
             {
                 Console.WriteLine("Mașina a fost actualizată cu succes.");
             }
@@ -221,6 +259,8 @@ namespace InterfaceExersare
             {
                 Console.WriteLine("Mașina cu acest ID nu a fost găsită.");
             }
+
+            return null;
         }
 
         public void RemoveMasina()

@@ -39,5 +39,13 @@ public class Program
         //masinaComandService.RemoveMasina(5);
         //repository.SaveData();
         //view.AfisareMasini();
+
+        //Masina masina = new Masina(1, "Xiaomi", 900, 900);
+
+        //repository.UpdateCar(masina);
+
+
+        //Masina masina = repository.FindById(1);
+        //Console.WriteLine(masina);
     }
 }

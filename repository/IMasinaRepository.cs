@@ -16,8 +16,10 @@ namespace InterfaceExersare.repository
 
         List<Masina> getAll();
         
-       Masina Remove(Masina masina);
+        Masina Remove(Masina masina);
 
-       Masina  UpdateCar(Masina masina);
+        Masina  UpdateCar(Masina masina);
+
+        Masina FindById (int id);
     }
 }

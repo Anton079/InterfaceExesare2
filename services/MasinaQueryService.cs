@@ -35,15 +35,9 @@ namespace InterfaceExersare.services
 
         public Masina FindCarById(int id)
         {
-            foreach(Masina x in getAll())
-            {
-                if(x.Id == id)
-                {
-                    return x;
-                }
-            }
-            return null;
-        }
+            Masina masina = _masinaRepository.FindById(id);
 
+            return masina;
+        }
     }
 }

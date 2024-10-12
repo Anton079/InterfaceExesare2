@@ -57,6 +57,21 @@ namespace InterfaceExersare.repository
             return file;
         }
 
+        private void SaveData()
+        {
+            try
+            {
+                using(StreamWriter sw = new StreamWriter(GetFilePath()))
+                {
+                    sw.WriteLine(ToSaveAll());
+                }
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
         public string ToSaveAll()
         {
             string save = "";
@@ -75,6 +90,7 @@ namespace InterfaceExersare.repository
         }
 
 
+
         //CRUD
 
         public List<Masina> getAll()
@@ -85,6 +101,7 @@ namespace InterfaceExersare.repository
         public Masina Add(Masina masina)
         {
             this.masinaList.Add(masina);
+            this.SaveData();
 
             return masina;
         }
@@ -92,22 +109,47 @@ namespace InterfaceExersare.repository
         public Masina Remove(Masina masina)
         {
             masinaList.Remove(masina);
+            this.SaveData();
 
             return masina;
         }
 
-        public Masina UpdateCar(Masina masina)
+        public Masina FindById(int id)
         {
-            for (int i = 0; i < masinaList.Count; i++)
+            foreach(Masina x in masinaList)
             {
-                if (masinaList[i].Id == masina.Id)
+                if(x.Id == id)
                 {
-                    masinaList[i] = masina;
-
-                    return masina;
+                    return x;
                 }
             }
             return null;
+        }
+
+        public Masina UpdateCar(Masina masina)
+        {
+
+            Masina masinaUpdate = FindById(masina.Id);
+
+            if (masina.topSpeed!=null)
+            {
+                masinaUpdate.topSpeed = masina.topSpeed;
+
+            }
+
+            if (masina.Brand != null)
+            {
+                masinaUpdate.Brand = masina.Brand;
+            }
+
+            if(masina.Weight != null)
+            {
+                masinaUpdate.Weight = masina.Weight;
+            }
+
+            this.SaveData();
+            return masinaUpdate;
+
         }
 
     }

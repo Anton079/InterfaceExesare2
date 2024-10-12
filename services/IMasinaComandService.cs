@@ -14,7 +14,7 @@ namespace InterfaceExersare.services
 
         Masina RemoveMasina(Masina masina);
 
-        Masina UpdateMasina(Masina masina);
+        Masina UpdateCar(Masina masina);
 
     }
 }
