@@ -22,7 +22,7 @@ namespace InterfaceExersare.services
 
         public Masina RemoveMasina(Masina masina)
         {
-            if(masina == null)
+            if(masina != null && _mRepository.FindById(masina.Id) != null)
             {
                 _mRepository.Remove(masina);
                 return masina;
@@ -34,7 +34,7 @@ namespace InterfaceExersare.services
         public Masina AddMasina(Masina masina)
         {
             //  conditii de existenta
-            if(masina != null)
+            if(masina != null && _mRepository.FindById(masina.Id) == null)
             {
                 _mRepository.Add(masina);
                 return masina;
@@ -45,11 +45,12 @@ namespace InterfaceExersare.services
 
         public Masina UpdateCar(Masina masina)
         {
-
-          //ce conditie de existenta trebuie sa pun aici
-
-
-
+            if (masina != null && _mRepository.FindById(masina.Id) != null)
+            {
+                _mRepository.UpdateCar(masina);
+                return masina;
+            }
+            return null;
         }
     }
 }
